@@ -13,8 +13,8 @@ struct student
 };
 
 char tocniPrvi[4]= {'a', 'c', 'c', 'c'};
-char tocniVtori[4]= {'b', 'b', 'b', 'a'};
-char tocniTreti[2]= {'c', 'c'};
+char tocniVtori[4]= {'c', 'd', 'a', 'a'};
+char tocniTreti[4][2]= {{'c', 'e'}, {'a', 'c'}, {'a', 'd'}, {'a', 'c'}};
 
 void studentInput(student &lice)
 {
@@ -27,81 +27,128 @@ void studentInput(student &lice)
         {
         cout << "Vnesete go indeksot na studentot: "<<endl;
         cin >> lice.indeks;
+
         }
     while (lice.indeks.size() != 3);
 }
 
-void writeOdgovor(fstream &file, char odg, int br)
+void writeOdgovor(fstream &file, char odg, char odg2, int br)
 {
-    file << br << ". " << odg << endl;
+    file << br << ". " << odg << " " << odg2 << endl;
 }
 
-float checkOdgovor(int brojnaprasanje, char answer)
+float checkOdgovor(int brojnaprasanje, char answer, char answer2)
 {
     if (brojnaprasanje <= 4)
         {
-        if (answer == tocniPrvi[brojnaprasanje-1])
+
+        if ( answer == tocniPrvi[brojnaprasanje-1] )
             return 5.5;
+
         }
-    else if (brojnaprasanje > 4 && brojnaprasanje <= 8)
+    else if (brojnaprasanje > 4 && brojnaprasanje <= 8 )
         {
-        if (answer == tocniVtori[brojnaprasanje-5])
-            return 3;
+        if ( answer == tocniVtori[brojnaprasanje-5] )
+            return 11.0;
         }
-    else if (brojnaprasanje > 8 && brojnaprasanje <= 10)
+    else if (brojnaprasanje > 8 && brojnaprasanje <= 12 )
         {
-        if (answer == tocniTreti[brojnaprasanje-9])
-            return 8;
+        if ((( answer == tocniTreti[brojnaprasanje-9][0] ) && ( answer2 == tocniTreti[brojnaprasanje-9][1] )) || (( answer == tocniTreti[brojnaprasanje-9][1] ) && ( answer2 == tocniTreti[brojnaprasanje-9][0] )))
+            return 8.5;
         }
     return 0;
 }
+
 float handleInput(int brojprasanje, fstream &file)
 {
-    char odgovor;
-    if (brojprasanje <= 4 || (brojprasanje > 4 && brojprasanje <= 8)||(brojprasanje > 8 && brojprasanje <= 10))
-        {
-        while (odgovor != 'a' && odgovor != 'b' && odgovor != 'c')
-            {
-            cout << "Vashiot odgovor: ";
-            cin >> odgovor;
-            };
-        writeOdgovor(file, odgovor, brojprasanje);
-        }
-    return checkOdgovor(brojprasanje, odgovor);
-}
-int score(float poeni)
-{
 
-    if ( poeni >= 0 && poeni <= 24 )
+    char odgovor,odgovor2;
+    if (brojprasanje <= 4)
+        {
+        do
+            {
+            cout<<"Vashiot odgovor: ";
+            cin>>odgovor;
+
+            }
+        while( odgovor != 'a' && odgovor != 'b' && odgovor != 'c' );
+        writeOdgovor(file, odgovor, ' ', brojprasanje);
+
+        }
+    else if (brojprasanje > 4 && brojprasanje <= 8 )
+        {
+        do
+            {
+            cout<<"Vashiot odgovor: ";
+            cin>>odgovor;
+
+            }
+        while( odgovor != 'a' && odgovor != 'b' && odgovor != 'c' && odgovor != 'd' );
+        writeOdgovor(file, odgovor, ' ', brojprasanje);
+        }
+    else if (brojprasanje > 8 && brojprasanje <= 12 )
+        {
+        do
+            {
+            cout<<"Vashiot odgovor: ";
+            cin>>odgovor;
+            }
+        while( odgovor != 'a' && odgovor != 'b' && odgovor != 'c' && odgovor != 'd' && odgovor != 'e' );
+        do
+            {
+            cout<<"Vashiot odgovor: ";
+            cin>>odgovor2;
+
+            }
+        while(( odgovor2 == odgovor )  || ( odgovor2 != 'a' && odgovor2 != 'b' && odgovor2 != 'c' && odgovor2 != 'd' && odgovor2 != 'e' ));
+        writeOdgovor(file, odgovor, odgovor2, brojprasanje);
+        }
+
+    return checkOdgovor(brojprasanje, odgovor, odgovor2);
+}
+
+int score(float poeni) {
+    if (poeni >= 0 && poeni <= 9)
+        return 1;
+    else if (poeni >= 10 && poeni <= 19)
+        return 2;
+    else if (poeni >= 20 && poeni <= 29)
+        return 3;
+    else if (poeni >= 30 && poeni <= 39)
+        return 4;
+    else if (poeni >= 40 && poeni <= 49)
         return 5;
-    else if ( poeni >= 25 && poeni <= 32 )
+    else if (poeni >= 50 && poeni <= 59)
         return 6;
-    else if ( poeni >= 32.5 && poeni <= 37 )
+    else if (poeni >= 60 && poeni <= 69)
         return 7;
-    else if ( poeni >= 37.5 && poeni <= 40.5 )
+    else if (poeni >= 70 && poeni <= 79)
         return 8;
-    else if ( poeni >= 41 && poeni <= 45 )
+    else if (poeni >= 80 && poeni <= 89)
         return 9;
-    else if ( poeni >= 45.5 && poeni <= 50 )
+    else if (poeni >= 90 && poeni <= 100)
         return 10;
     else
-        {
         return 0;
-        }
 }
+
 void answersTable()
 {
+
+    cout<<"___________________________________________________________"<<endl;
+
     cout<<"Tocni odgovori na prasanjata se:"<<endl;
-    for(int i=1; i<=10; i++)
+    for(int i=1; i<=12; i++)
         {
         if (i <= 4)
             cout<<i<<". "<<tocniPrvi[i-1]<<endl;
         else if (i > 4 && i <= 8 )
             cout<<i<<". "<<tocniVtori[i-5]<<endl;
-        else if (i > 8 && i <= 10 )
-            cout<<i<<". "<<tocniTreti[i-9] << endl;
+        else if (i > 8 && i <= 12 )
+            cout<<i<<". "<<tocniTreti[i-9][0] << " " <<tocniTreti[i-9][1]<<endl;
         }
 }
+
 bool checkFileExists(string filename)
 {
     ifstream infile(filename.c_str());
@@ -116,13 +163,14 @@ string getCurrentDateTime()
 }
 int main()
 {
-    const string filelog = "folder za prashana i student.log/Students.log";
-    fstream logFile(filelog, ios::app);
+
     fstream file, test;
     student lice;
     string prasanje;
     unsigned long brojnaprasanje = 1;
     float poeni = 0;
+    const string filelog = "folder za prashana i student.log/Students.log";
+    fstream logFile(filelog, ios::app);
 
     if (!logFile)
         {
@@ -169,6 +217,7 @@ int main()
             else
                 {
                 cout << prasanje[i];
+
                 }
             }
         cout << endl;

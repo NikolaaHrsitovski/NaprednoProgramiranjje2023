@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1681923081 source:d:\codeblocks\programscodeblocks\inki961-vezhba8-zadacha1\main.cpp
-	<iostream>
-	<fstream>
-	<string>
-	<ctime>
-
