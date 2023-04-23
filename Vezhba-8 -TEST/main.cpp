@@ -107,7 +107,8 @@ float handleInput(int brojprasanje, fstream &file)
     return checkOdgovor(brojprasanje, odgovor, odgovor2);
 }
 
-int score(float poeni) {
+int score(float poeni)
+{
     if (poeni >= 0 && poeni <= 9)
         return 1;
     else if (poeni >= 10 && poeni <= 19)
@@ -170,7 +171,26 @@ int main()
     unsigned long brojnaprasanje = 1;
     float poeni = 0;
     const string filelog = "folder za prashana i student.log/Students.log";
+    int br =0;
+    string Brojach="folder za prashana i student.log/Brojach.txt";
+
     fstream logFile(filelog, ios::app);
+
+    file.open(Brojach.c_str(), ios::in);
+    if (file.is_open())
+        {
+        file >> br;
+        }
+    file.close();
+
+    br++;
+
+    file.open(Brojach.c_str(), ios::out);
+    if (file.is_open())
+        {
+        file << br;
+        }
+    file.close();
 
     if (!logFile)
         {
@@ -181,7 +201,7 @@ int main()
 
     string vremeS = getCurrentDateTime();
 
-    logFile<<"#."<< "Pochetok:"<<vremeS<<";" << lice.ime << ";" << lice.prezime << ";" <<"INKI"<< lice.indeks << ";"  << "\n";
+    logFile<<br<<". "<< "Pochetok:"<<vremeS<<";" << lice.ime << ";" << lice.prezime << ";" <<"INKI"<< lice.indeks << ";"  << "\n";
 
     const string filename = lice.ime + lice.prezime + "INKI" + lice.indeks;
     if (checkFileExists(filename))
