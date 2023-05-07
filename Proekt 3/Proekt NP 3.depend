@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1683207760 source:d:\codeblocks\programscodeblocks\proekt np 3\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<algorithm>
+
