@@ -26,10 +26,10 @@ int main()
         cin >> p.IDbroj;
 
 
-        while (cin.fail()) // if the previous input failed
+        while (cin.fail())
             {
             cout << "Vnesi IDbroj za profil " << i + 1 << " (mora da bide broj!): ";
-            cin.clear(); // clear the error flag on cin
+            cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> p.IDbroj;
             }
@@ -42,7 +42,7 @@ int main()
         while (cin.fail())
             {
             cout << "Vnesi Nivo za profil " << i + 1 << " (mora da bide broj!): ";
-            cin.clear(); // clear the error flag on cin
+            cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> p.Nivo;
             }
